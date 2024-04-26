@@ -7,7 +7,7 @@ import 'package:swipabledemo/widgets/example_card.dart';
 import 'package:swipabledemo/widgets/general_drawer.dart';
 
 const _images = [
-  'assets/images/image_5.jpg',
+  // 'assets/images/image_5.jpg',
   'assets/images/image_3.jpg',
   'assets/images/image_4.jpg',
 ];
@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
           children: [
             Positioned.fill(
               child: Padding(
-                padding: const EdgeInsets.all(0),
+                padding: const EdgeInsets.only(right: 0),
                 child: SwipableStack(
                   detectableSwipeDirections: const {
                     SwipeDirection.right,

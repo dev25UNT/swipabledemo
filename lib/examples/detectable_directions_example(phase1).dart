@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swipabledemo/swipable/swipable_stack.dart';
 import 'package:swipabledemo/widgets/bottom_buttons_row.dart';
@@ -22,12 +23,12 @@ const _images = [
   'assets/images/image_12.jpg',
 ];
 
-class DetectableDirectionsExample extends StatefulWidget {
-  const DetectableDirectionsExample._();
+class DetectableDirectionsExamplePhaseOne extends StatefulWidget {
+  const DetectableDirectionsExamplePhaseOne._();
 
   static Route<void> route() {
     return FadeRoute(
-      builder: (context) => const DetectableDirectionsExample._(),
+      builder: (context) => const DetectableDirectionsExamplePhaseOne._(),
     );
   }
 
@@ -35,10 +36,10 @@ class DetectableDirectionsExample extends StatefulWidget {
   _DetectableDirectionsExampleState createState() => _DetectableDirectionsExampleState();
 }
 
-class _DetectableDirectionsExampleState extends State<DetectableDirectionsExample> {
+class _DetectableDirectionsExampleState extends State<DetectableDirectionsExamplePhaseOne> {
   late final SwipableStackController _controller;
   int selectedIndex = 0;
-  bool isSwiping = false;
+
   void _listenController() {
     setState(() {});
   }
@@ -68,15 +69,17 @@ class _DetectableDirectionsExampleState extends State<DetectableDirectionsExampl
         child: Stack(
           alignment: Alignment.center,
           children: [
-             if(!isSwiping)backImage(selectedIndex),
-
+            Padding(
+              padding: const EdgeInsets.only(bottom: 81, left: 21, right: 21),
+              child: backImage(selectedIndex),
+            ),
             SizedBox(
               width: 350,
               height: 438,
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: SwipableStack(
-                  // viewFraction: 1,
+                  viewFraction: 1,
                   detectableSwipeDirections: const {
                     SwipeDirection.right,
                     SwipeDirection.left,
@@ -87,15 +90,17 @@ class _DetectableDirectionsExampleState extends State<DetectableDirectionsExampl
                     // if (kDebugMode) {
                     //   print('$index, $direction');
                     // }
-                    selectedIndex = index;
-                    setState(() {
-                      isSwiping = false; // Set swiping status to false when swipe completes
-                    });
+
+                    // selectedIndex = index;
+                    // print("selected indes is ==> ${index}");
+
+                    // print(index);
+                    // if (kDebugMode) {
+                    //   print("Image is ==> ${_images[index]}");
+                    // }
                   },
                   onWillMoveNext: (index,direction){
-                    setState(() {
-                      isSwiping = true; // Set swiping status to true when swipe starts
-                    });
+                    selectedIndex = index;
                     print("selected indes is ==> ${index}");
                     return true;
                   },
@@ -132,33 +137,30 @@ class _DetectableDirectionsExampleState extends State<DetectableDirectionsExampl
 
   backImage(int? assetImg) {
     print(selectedIndex);
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 81, left: 21, right: 21),
-      child: Container(
-        width: 308, // Adjust width as needed
-        height: 384,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-          ),
-          image: DecorationImage(
-              // image: AssetImage(
-              //   'assets/images/image_4.jpg',
-              // ),
-              image: AssetImage(
-                _images[selectedIndex + 2],
-              ),
-              fit: BoxFit.cover,
-              opacity: 0.6),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, 1),
-              blurRadius: 26,
-              color: Colors.black.withOpacity(0.1),
-            ),
-          ],
+    return Container(
+      width: 308, // Adjust width as needed
+      height: 384,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
         ),
+        image: DecorationImage(
+            // image: AssetImage(
+            //   'assets/images/image_4.jpg',
+            // ),
+            image: AssetImage(
+              _images[selectedIndex],
+            ),
+            fit: BoxFit.cover,
+            opacity: 0.6),
+        boxShadow: [
+          BoxShadow(
+            offset: const Offset(0, 1),
+            blurRadius: 26,
+            color: Colors.black.withOpacity(0.1),
+          ),
+        ],
       ),
     );
   }
