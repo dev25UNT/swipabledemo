@@ -15,7 +15,7 @@ part 'model/swipable_stack_position.dart';
 part 'model/swipe_rate_per_threshold.dart';
 part 'swipable_stack_controller.dart';
 
-const _kStackMaxCount = 3;
+const _kStackMaxCount = 2;
 
 /// A widget for stacking cards, which users can swipe horizontally and
 /// vertically with beautiful animations.
@@ -826,7 +826,9 @@ class _SwipablePositioned extends StatelessWidget {
       case SwipeAnchor.bottom:
         return -angle;
       case null:
-        return _swipingTop ? -angle : angle;
+        ///changed here
+      /// return _swipingTop ? -angle : angle;
+        return _swipingTop ? angle : angle;
     }
   }
 
@@ -883,7 +885,9 @@ class _SwipablePositioned extends StatelessWidget {
   Widget build(BuildContext context) {
     final position = _preferredPosition(context);
     return Positioned(
-      top: position.dy,
+      ///Here
+      /// top: position.dy,
+      top: -position.dy,
       left: position.dx,
       child: Transform.rotate(
         angle: _rotationAngle,

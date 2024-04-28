@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swipabledemo/examples/DetectableDirectionsExample(phase2).dart';
 import 'package:swipabledemo/examples/basic_example.dart';
 import 'package:swipabledemo/examples/ignore_vertical_swipe_example.dart';
 
@@ -66,6 +67,13 @@ class GeneralDrawer extends StatelessWidget {
             onTap: () {
               navigate(
                 DetectableDirectionsExamplePhaseOne.route(),
+              );
+            },
+          ),ListTile(
+            title: const Text('DetectableDirectionsExamplePhaseoTwo'),
+            onTap: () {
+              navigate(
+                DetectableDirectionsExamplePhaseTwo.route(),
               );
             },
           ),

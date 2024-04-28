@@ -79,22 +79,22 @@ class ExampleCard extends StatelessWidget {
           //   ),
           // ),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: theme.textTheme.headline6!.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: BottomButtonsRow.height)
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 12),
+          //   child: Column(
+          //     mainAxisAlignment: MainAxisAlignment.end,
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       Text(
+          //         name,
+          //         style: theme.textTheme.headline6!.copyWith(
+          //           color: Colors.white,
+          //         ),
+          //       ),
+          //       const SizedBox(height: BottomButtonsRow.height)
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );

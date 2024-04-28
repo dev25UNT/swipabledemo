@@ -18,7 +18,7 @@ const _images = [
   'assets/images/image_8.jpg',
   'assets/images/image_9.jpg',
   'assets/images/image_10.jpg',
-  'assets/images/image_11jpg',
+  'assets/images/image_11.jpg',
   'assets/images/image_12.jpg',
 ];
 
@@ -64,67 +64,86 @@ class _DetectableDirectionsExampleState extends State<DetectableDirectionsExampl
         title: const Text('DetectableDirectionsExample'),
       ),
       drawer: const GeneralDrawer(),
-      body: Center(
-        child: Stack(
-          alignment: Alignment.center,
+      body: SingleChildScrollView(
+        child: Column(
           children: [
-             if(!isSwiping)backImage(selectedIndex),
+            Center(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // if (!isSwiping) backImage(selectedIndex),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    ///For container show in center
+                    child: SizedBox(
+                      width: 350,
+                      height: 438,
+                      child: Center(
+                        child: SwipableStack(
+                          ///This view fraction for back side image view
+                          viewFraction: 0.85,
+                          detectableSwipeDirections: const {
+                            SwipeDirection.right,
+                            SwipeDirection.left,
+                          },
+                          controller: _controller,
+                          stackClipBehaviour: Clip.none,
+                          allowVerticalSwipe: false,
+                          // onSwipeCompleted: (index, direction) {
+                          //   // if (kDebugMode) {
+                          //   //   print('$index, $direction');
+                          //   // }
+                          //   selectedIndex = index;
+                          //   setState(() {
+                          //     isSwiping = false; // Set swiping status to false when swipe completes
+                          //   });
+                          // },
+                          // onWillMoveNext: (index, direction) {
+                          //   setState(() {
+                          //     isSwiping = true; // Set swiping status to true when swipe starts
+                          //   });
+                          //   print("selected indes is ==> ${index}");
+                          //   return true;
+                          // },
+                          horizontalSwipeThreshold: 0.8,
+                          verticalSwipeThreshold: 0.8,
+                          builder: (context, properties) {
+                            final itemIndex = properties.index % _images.length;
+                            // backImage(_images[itemIndex]);
+                            // print("Image is ==> ${_images[itemIndex]}");
+                            return Stack(
+                              children: [
+                                ExampleCard(
+                                  name: 'Sample No.${itemIndex + 1}',
+                                  assetPath: _images[itemIndex],
+                                ),
 
-            SizedBox(
-              width: 350,
-              height: 438,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: SwipableStack(
-                  // viewFraction: 1,
-                  detectableSwipeDirections: const {
-                    SwipeDirection.right,
-                    SwipeDirection.left,
-                  },
-                  controller: _controller,
-                  stackClipBehaviour: Clip.none,
-                  onSwipeCompleted: (index, direction) {
-                    // if (kDebugMode) {
-                    //   print('$index, $direction');
-                    // }
-                    selectedIndex = index;
-                    setState(() {
-                      isSwiping = false; // Set swiping status to false when swipe completes
-                    });
-                  },
-                  onWillMoveNext: (index,direction){
-                    setState(() {
-                      isSwiping = true; // Set swiping status to true when swipe starts
-                    });
-                    print("selected indes is ==> ${index}");
-                    return true;
-                  },
-                  horizontalSwipeThreshold: 0.8,
-                  verticalSwipeThreshold: 0.8,
-                  builder: (context, properties) {
-                    final itemIndex = properties.index % _images.length;
-                    // backImage(_images[itemIndex]);
-                    // print("Image is ==> ${_images[itemIndex]}");
-                    return Stack(
-                      children: [
-                        ExampleCard(
-                          name: 'Sample No.${itemIndex + 1}',
-                          assetPath: _images[itemIndex],
+                                ///For Left && Right Swipe Icons
+                                if (properties.stackIndex == 0 && properties.direction != null)
+                                  Positioned.fill(
+                                    ///This for right left icons on center position
+                                    // bottom: 140,
+                                    // right: 75,
+                                    // left: 75,
+                                    child: CardOverlay(
+                                      swipeProgress: properties.swipeProgress,
+                                      direction: properties.direction!,
+                                    ),
+                                  )
+                              ],
+                            );
+                          },
                         ),
-
-                        ///For Left && Right Swipe Icons
-                        if (properties.stackIndex == 0 && properties.direction != null)
-                          CardOverlay(
-                            swipeProgress: properties.swipeProgress,
-                            direction: properties.direction!,
-                          )
-                      ],
-                    );
-                  },
-                ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
+            SizedBox(height: 50,),
+            const Text('Person Details')
           ],
+
         ),
       ),
     );
@@ -147,17 +166,17 @@ class _DetectableDirectionsExampleState extends State<DetectableDirectionsExampl
               //   'assets/images/image_4.jpg',
               // ),
               image: AssetImage(
-                _images[selectedIndex + 2],
+                _images[selectedIndex],
               ),
               fit: BoxFit.cover,
               opacity: 0.6),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, 1),
-              blurRadius: 26,
-              color: Colors.black.withOpacity(0.1),
-            ),
-          ],
+          // boxShadow: [
+          //   BoxShadow(
+          //     offset: const Offset(0, 1),
+          //     blurRadius: 26,
+          //     color: Colors.black.withOpacity(0.1),
+          //   ),
+          // ],
         ),
       ),
     );
